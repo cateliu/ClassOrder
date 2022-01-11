@@ -2,7 +2,6 @@
 #include <iostream>
 #include <fstream>
 #include "globalFile.h"
-
 Manager::Manager()
 {
 	
@@ -14,6 +13,20 @@ Manager::Manager(string name, string pwd)
 	this->m_Name = name;
 	this->m_Pwd = pwd;
 	this->initVector();
+	ifstream ifs;
+	ifs.open(COMPUTER_FILE, ios::in);
+	if (!ifs.is_open())
+	{
+		cout << "机房文件打开失败！" << endl;
+		return;
+	}
+	computerRoom C;
+	while (ifs >> C.m_Rid && ifs >> C.m_MaxNum)
+	{
+		this->vRom.push_back(C);
+	}
+	cout << "当前机房数量为：" << this->vRom.size() << endl;
+	ifs.close();
 }
 
 void Manager::initVector()
@@ -172,17 +185,48 @@ void Manager::addPerson()
 // 查看账号
 void Manager::showPerson()
 {
-	
+	cout << "请选择查看内容：" << endl;
+	cout << "1. 学生" << endl;
+	cout << "2. 老师" << endl;
+	int select;
+	cin >> select;
+	if (select == 1)
+	{
+		for (vector<Student>::iterator it = this->vStu.begin(); it != this->vStu.end(); it++)
+		{
+			cout << "学号："<<it->m_Id << " 姓名：" << it->m_Name << endl;
+		}
+	}
+	else
+	{
+		for (vector<Teacher>::iterator it = this->vTea.begin(); it != this->vTea.end(); it++)
+		{
+			cout << "教师编号：" << it->m_EmpId << " 姓名：" << it->m_Name << endl;
+		}
+	}
+	system("pause");
+	system("cls");
 }
 
 // 查看机房信息
 void Manager::showComputer()
 {
-
+	for (vector<computerRoom>::iterator it = this->vRom.begin(); it != this->vRom.end(); it++)
+	{
+		cout << "机房号为：" << it->m_Rid << " 机房最大容纳数量为：" << it->m_MaxNum << endl;
+	}
+	system("pause");
+	system("cls");
 }
 
 // 清空预约信息
 void Manager::cleanFile()
 {
+	ofstream ofs;
+	ofs.open(ORDER_FILE, ios::trunc);
+	ofs.close();
 
+	cout << "清空成功！" << endl;
+	system("pause");
+	system("als");
 }

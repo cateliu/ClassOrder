@@ -8,6 +8,7 @@ class Manager :public Identity
 {
 	vector<Student> vStu;
 	vector<Teacher> vTea;
+	vector<computerRoom> vRom;
 public:
 	// Ä¬ÈÏ¹¹Ôì
 	Manager();

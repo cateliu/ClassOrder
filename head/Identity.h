@@ -1,5 +1,6 @@
 #pragma once
 #include<string>
+#include "computerRoom.h"
 using namespace std;
 class Identity // 老师、学生和职工的base
 {
