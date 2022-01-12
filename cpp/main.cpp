@@ -6,7 +6,46 @@
 #include "globalFile.h"
 using namespace std;
  
+void studentMenu(Identity* &student)
+{
+	while (true)
+	{
+		// 学生菜单
+		system("cls");
+		student->operMenu();
 
+		Student* st = (Student*)student;
+
+		int select;
+		cin >> select;
+
+
+		if (select == 1)	// 申请预约
+		{
+			st->applyOrder();
+		}
+		else if (select == 2) // 查看自身预约
+		{
+			st->showMyOrder();
+		}
+		else if (select == 3) // 查看所有预约
+		{
+			st->showAllOder();
+		}
+		else if (select == 4) // 取消预约
+		{
+			st->cancelOrder();
+		}
+		else
+		{
+			delete st;
+			cout << "注销成功！" << endl;
+			system("pause");
+			system("cls");
+			return;
+		}
+	}
+}
 
 void manageMenu(Identity*& manager)
 {
@@ -103,9 +142,10 @@ void LogIn(string fileName, int type) // 全局函数，登录
 			{
 				cout << "学生登录成功！" << endl;
 				system("pause");
+				system("cls");
 				person = new Student(Id, name, pwd);
 				// 进入学生身份的子菜单
-				delete person;
+				studentMenu(person);
 				return;
 			}
 		}

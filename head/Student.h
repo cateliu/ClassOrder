@@ -1,5 +1,7 @@
 #pragma once
 #include "Identity.h"
+#include "orderFile.h"
+#include <vector>
 class Student : public Identity
 {
 public:
@@ -26,4 +28,7 @@ public:
 
 	// 学生学号
 	int		m_Id;
+
+	// 机房信息
+	vector<computerRoom> vRom;
 };
