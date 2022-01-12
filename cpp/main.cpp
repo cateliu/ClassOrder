@@ -144,18 +144,23 @@ void LogIn(string fileName, int type) // 全局函数，登录
 	{
 	case 1:
 		cout << "请输入你的学号：";
-		cin >> Id;
 		break;
 	case 2:
 		cout << "请输入你的教师号：";
-		cin >> Id;
 	case 3:
 		break;
 	default:
 		return;
 		break;
 	}
-
+	cin >> Id;
+	while (cin.fail())
+	{
+		cin.clear();
+		cin.ignore(1024, '\n');
+		cout << "输入有误, 输入数字：";
+		cin >> Id;
+	}
 	cout << "请输入你的姓名：";
 	cin >> name;
 	cout << "请输入你的密码：";
@@ -181,6 +186,7 @@ void LogIn(string fileName, int type) // 全局函数，登录
 				return;
 			}
 		}
+		cout << "学生登录失败" << endl;
 		break;
 	}
 	case 2:				// 老师登录验证
@@ -223,14 +229,14 @@ void LogIn(string fileName, int type) // 全局函数，登录
 		break;
 	}
 	default:
+	{
+		delete person;
+		cout << "验证登录失败！" << endl;
 		break;
 	}
+	}
 	ifs.close();
-	cout << "验证登录失败！" << endl;
 	system("pause");
-	return;
-
-
 }
 void ShowMenu()
 {
@@ -270,15 +276,14 @@ void ShowMenu()
 
 int main()
 {
-	Teacher t1;
-	Manager m1;
-	//string filename;
-	//cin >> filename;
-	//cout << "file name is : " << filename << endl;
 	int choice = 0;
 	while (true)
 	{
 		ShowMenu();
+		if (cin.fail())
+		{
+			cin.clear();
+		}
 		cin >> choice;
 		switch (choice)
 		{
