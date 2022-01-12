@@ -6,6 +6,38 @@
 #include "globalFile.h"
 using namespace std;
  
+void teacherMenu(Identity* &teacher)
+{
+	while (true)
+	{
+		system("cls");
+
+		teacher->operMenu();
+
+		Teacher* tea = (Teacher*)teacher;
+
+		int select;
+		cin >> select;
+
+		if (select == 1) // 查看所有预约
+		{
+			tea->showAllorder();
+		}
+		else if (select == 2) // 审核预约
+		{
+			tea->validOrder();
+		}
+		else // 注销登录
+		{
+			delete tea;
+			cout << "注销登录！" << endl;
+			system("pause");
+			system("cls");
+			return;
+		}
+	}
+}
+
 void studentMenu(Identity* &student)
 {
 	while (true)
@@ -164,8 +196,7 @@ void LogIn(string fileName, int type) // 全局函数，登录
 				system("pause");
 				person = new Teacher(Id, name, pwd);
 				// 进入老师身份的子菜单
-
-				delete person;
+				teacherMenu(person);
 				return;
 			}
 		}
